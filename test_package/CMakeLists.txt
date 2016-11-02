@@ -5,5 +5,6 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 CONAN_BASIC_SETUP()
 
 ADD_EXECUTABLE(example example.cpp)
+MESSAGE("HOLAAA ${CONAN_LIBS}")
 target_link_libraries(example ${CONAN_LIBS})
 target_compile_features(example PRIVATE cxx_range_for)

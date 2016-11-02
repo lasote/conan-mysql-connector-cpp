@@ -4,3 +4,4 @@ activate*
 deactivate*
 conanbuild*
 test_package/build
+mysql-connector-cpp-2.0.3

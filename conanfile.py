@@ -36,7 +36,17 @@ class MysqlConnectorConan(ConanFile):
     CONAN_BASIC_SETUP()
     '''
         replace_in_file("%s/CMakeLists.txt" % self.ZIP_FOLDER_NAME, "CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)", conan_magic_lines)        
-        # replace_in_file("%s/cdk/CMakeLists.txt" % self.ZIP_FOLDER_NAME, "INCLUDE(protobuf)", "")
+        replace_in_file("%s/cdk/CMakeLists.txt" % self.ZIP_FOLDER_NAME, '''IF(cdk_stand_alone)
+  ADD_EXECUTABLE(try try.cc)
+  TARGET_LINK_LIBRARIES(try cdk)
+  ADD_GCOV(try)
+ENDIF()''', "")
+        
+        replace_in_file("%s/CMakeLists.txt" % self.ZIP_FOLDER_NAME, '''ADD_EXECUTABLE(try try.cc)
+TARGET_LINK_LIBRARIES(try libconcpp)
+SET_INTERFACE_OPTIONS(try devapi)''', "")
+        
+        
         if not os.path.exists("%s/_build" % self.ZIP_FOLDER_NAME):
             self.run("mkdir %s/_build" % self.ZIP_FOLDER_NAME)
         
